@@ -1,31 +1,31 @@
-// import {
-//   initializeApp
-// } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-// import {
-//   getFirestore,
-//   collection,
-//   addDoc,
-//   getDocs,
-//   query,
-//   orderBy,
-//   limit,
-//   serverTimestamp
-// } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  limit,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyCJQPkV7U_2IkXTEO71rJCCJkMHRjL6rGg",
-//   authDomain: "test-db386.firebaseapp.com",
-//   projectId: "test-db386",
-//   storageBucket: "test-db386.firebasestorage.app",
-//   messagingSenderId: "949343420610",
-//   appId: "1:949343420610:web:c9a3471c38d07e6456fb5b",
-//   measurementId: "G-4KD6HNLC0R"
-// };
+const firebaseConfig = {
+  apiKey: "AIzaSyCJQPkV7U_2IkXTEO71rJCCJkMHRjL6rGg",
+  authDomain: "test-db386.firebaseapp.com",
+  projectId: "test-db386",
+  storageBucket: "test-db386.firebasestorage.app",
+  messagingSenderId: "949343420610",
+  appId: "1:949343420610:web:c9a3471c38d07e6456fb5b",
+  measurementId: "G-4KD6HNLC0R"
+};
 
-// const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
-// const db = getFirestore(app);
+const db = getFirestore(app);
 
 const rawText = `
 ++++++
@@ -3748,52 +3748,9 @@ const tests =
   }));
 
 
-let currentBlockIndex = 0;
-let currentQuestionIndex = 0;
-let score = 0;
-
-
-const blocksBox =
-  document.querySelector(".blocks");
-
-function showBlocks() {
-
-  blocksBox.innerHTML = "";
-
-  tests.forEach((test, index) => {
-
-    const button =
-      document.createElement("button");
-
-    button.className = "block-btn";
-
-    button.textContent = test.title;
-
-    button.addEventListener("click", () => {
-
-      currentBlockIndex = index;
-
-      currentQuestionIndex = 0;
-
-      score = 0;
-
-      startTest();
-
-    });
-
-    blocksBox.appendChild(button);
-
-  });
-
-}
-
-showBlocks();
-
-console.log(tests);
-
 let selectedTest = null;
 let currentQuestion = 0;
-// let score = 0;
+let score = 0;
 let answered = false;
 
 const homeScreen = document.getElementById("homeScreen");
@@ -3819,9 +3776,14 @@ function renderBlocks() {
 
   tests.forEach((test, index) => {
     const button = document.createElement("button");
+
     button.className = "block-btn";
     button.textContent = test.title;
-    button.addEventListener("click", () => startTest(index));
+
+    button.addEventListener("click", () => {
+      startTest(index);
+    });
+
     blocksEl.appendChild(button);
   });
 }
@@ -3830,6 +3792,7 @@ function startTest(index) {
   selectedTest = tests[index];
   currentQuestion = 0;
   score = 0;
+  answered = false;
 
   homeScreen.classList.add("hidden");
   resultScreen.classList.add("hidden");
@@ -3845,14 +3808,21 @@ function showQuestion() {
 
   const q = selectedTest.questions[currentQuestion];
 
-  progressEl.textContent = `${selectedTest.title}: ${currentQuestion + 1} / ${selectedTest.questions.length}`;
+  progressEl.textContent =
+    `${selectedTest.title}: ${currentQuestion + 1} / ${selectedTest.questions.length}`;
+
   questionEl.textContent = q.question;
 
   q.answers.forEach((answer, index) => {
     const button = document.createElement("button");
+
     button.className = "answer-btn";
     button.textContent = answer;
-    button.addEventListener("click", () => checkAnswer(index));
+
+    button.addEventListener("click", () => {
+      checkAnswer(index);
+    });
+
     answersEl.appendChild(button);
   });
 }
@@ -3898,8 +3868,14 @@ function showResult() {
   }
 
   resultTitle.textContent = level;
-  resultText.textContent = `Вы набрали ${score} из ${selectedTest.questions.length}`;
+
+  resultText.textContent =
+    `Вы набрали ${score} из ${selectedTest.questions.length}`;
+
   resultImage.src = image;
+
+  saveResult();
+  showLeaders();
 }
 
 function copyCard() {
@@ -3911,6 +3887,8 @@ function copyCard() {
   alert("Номер карты скопирован");
 
 }
+
+window.copyCard = copyCard;
 
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
@@ -3935,9 +3913,64 @@ chooseBtn.addEventListener("click", () => {
 restartBtn.addEventListener("click", () => {
   currentQuestion = 0;
   score = 0;
+  answered = false;
+
   resultScreen.classList.add("hidden");
   quizScreen.classList.remove("hidden");
+
   showQuestion();
 });
+
+async function saveResult() {
+  let userName = localStorage.getItem("userName");
+
+  if (!userName) {
+    userName = prompt("Введите ваше имя");
+
+    if (!userName) {
+      userName = "Игрок";
+    }
+
+    localStorage.setItem("userName", userName);
+  }
+
+  await addDoc(collection(db, "results"), {
+    name: userName,
+    score: score,
+    block: selectedTest.title,
+    createdAt: serverTimestamp()
+  });
+}
+
+async function showLeaders() {
+  const leaders = document.getElementById("leaders");
+
+  if (!leaders) return;
+
+  const q = query(
+    collection(db, "results"),
+    orderBy("score", "desc"),
+    limit(10)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  leaders.innerHTML = "";
+
+  let place = 1;
+
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+
+    leaders.innerHTML += `
+      <div class="leader">
+        <span>${place}. ${data.name}</span>
+        <b>${data.score}/25</b>
+      </div>
+    `;
+
+    place++;
+  });
+}
 
 renderBlocks();

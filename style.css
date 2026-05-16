@@ -273,6 +273,83 @@ body {
   transform: translateY(-3px);
   background: #f1f1f1;
 }
+.leader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 20px;
+  margin-bottom: 14px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #f4f4f4
+  );
+
+  box-shadow:
+    0 5px 15px rgba(0,0,0,0.08);
+
+  transition: 0.3s;
+
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.leaderboard-title {
+  font-size: 24px;
+  padding: 18px;
+  
+}
+
+.leader:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 10px 25px rgba(0,0,0,0.12);
+}
+
+.leader span {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+}
+
+.leader b {
+  font-size: 18px;
+
+  padding: 10px 16px;
+
+  border-radius: 12px;
+
+  background: #111;
+  color: white;
+
+  min-width: 90px;
+  text-align: center;
+}
+.leader:nth-child(1) {
+  background: linear-gradient(
+    135deg,
+    #ffd700,
+    #ffed8a
+  );
+}
+
+.leader:nth-child(2) {
+  background: linear-gradient(
+    135deg,
+    #c0c0c0,
+    #ececec
+  );
+}
+
+.leader:nth-child(3) {
+  background: linear-gradient(
+    135deg,
+    #cd7f32,
+    #f3c08c
+  );
+}
 
 @media (max-width: 768px) {
 
@@ -304,6 +381,20 @@ body {
 
   .copy-btn {
     width: 100%;
+  }
+    .leader {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .leader span {
+    font-size: 16px;
+  }
+
+  .leader b {
+    font-size: 15px;
+    padding: 8px 12px;
+    min-width: 70px;
   }
 
 }
@@ -337,4 +428,14 @@ body {
   .blocks {
     grid-template-columns: 1fr;
   }
+  .leader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .leader b {
+    width: 100%;
+    text-align: center;
+  }
+
 }

@@ -30,32 +30,47 @@
     </section>
 
     <section class="result hidden" id="resultScreen">
+
       <div class="result-card">
+
         <h2 id="resultTitle"></h2>
+
         <p id="resultText"></p>
+
         <img id="resultImage" alt="Результат теста" />
+
         <div class="result-actions">
-          <button id="restartBtn">Пройти заново</button>
-          <button id="chooseBtn">Выбрать другой блок</button>
+          <button id="restartBtn">
+            Пройти заново
+          </button>
+
+          <button id="chooseBtn">
+            Выбрать другой блок
+          </button>
         </div>
+
         <div class="thanks">
-
           <h3>Отблагодарить создателя</h3>
-
 
           <p>Humo: 9860 0201 2038 5586</p>
 
           <button onclick="copyCard()" class="copy-btn">
             Скопировать карту
           </button>
-
         </div>
+
+        <div class="leaderboard">
+          <h3 class="leaderboard-title">
+            🏆 Топ пользователей
+          </h3>
+
+          <div id="leaders"></div>
+        </div>
+
       </div>
+
     </section>
-    <section class="start-screen">
-      <!-- <h1>Выберите блок теста</h1> -->
-      <div class="blocks"></div>
-    </section>
+
   </main>
 
   <script type="module" src="script.js"></script>
