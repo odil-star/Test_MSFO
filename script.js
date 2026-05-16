@@ -8,6 +8,7 @@ import {
   addDoc,
   getDocs,
   query,
+  where,
   orderBy,
   limit,
   serverTimestamp
@@ -3771,6 +3772,13 @@ const resultTitle = document.getElementById("resultTitle");
 const resultText = document.getElementById("resultText");
 const resultImage = document.getElementById("resultImage");
 
+
+const ratingBtn = document.getElementById("ratingBtn");
+const ratingScreen = document.getElementById("ratingScreen");
+const ratingBackBtn = document.getElementById("ratingBackBtn");
+const allLeaders = document.getElementById("allLeaders");
+
+
 function renderBlocks() {
   blocksEl.innerHTML = "";
 
@@ -3949,6 +3957,7 @@ async function showLeaders() {
 
   const q = query(
     collection(db, "results"),
+    where("block", "==", selectedTest.title),
     orderBy("score", "desc"),
     limit(10)
   );
@@ -3974,3 +3983,57 @@ async function showLeaders() {
 }
 
 renderBlocks();
+
+ratingBtn.addEventListener("click", () => {
+  homeScreen.classList.add("hidden");
+  ratingScreen.classList.remove("hidden");
+  showAllBlockLeaders();
+});
+
+ratingBackBtn.addEventListener("click", () => {
+  ratingScreen.classList.add("hidden");
+  homeScreen.classList.remove("hidden");
+});
+
+async function showAllBlockLeaders() {
+  allLeaders.innerHTML = "";
+
+  for (const test of tests) {
+    const q = query(
+      collection(db, "results"),
+      where("block", "==", test.title),
+      orderBy("score", "desc"),
+      limit(5)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    let html = `
+      <div class="rating-block">
+        <h3>${test.title}</h3>
+    `;
+
+    let place = 1;
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+
+      html += `
+        <div class="leader">
+          <span>${place}. ${data.name}</span>
+          <b>${data.score}/25</b>
+        </div>
+      `;
+
+      place++;
+    });
+
+    if (place === 1) {
+      html += `<p class="empty-rating">Пока нет результатов</p>`;
+    }
+
+    html += `</div>`;
+
+    allLeaders.innerHTML += html;
+  }
+}
