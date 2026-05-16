@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Тест по МСФО</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <main class="app">
     <section class="hero" id="homeScreen">
@@ -36,10 +38,27 @@
           <button id="restartBtn">Пройти заново</button>
           <button id="chooseBtn">Выбрать другой блок</button>
         </div>
+        <div class="thanks">
+
+          <h3>Отблагодарить создателя</h3>
+
+
+          <p>Humo: 9860 0201 2038 5586</p>
+
+          <button onclick="copyCard()" class="copy-btn">
+            Скопировать карту
+          </button>
+
+        </div>
       </div>
+    </section>
+    <section class="start-screen">
+      <h1>Выберите блок теста</h1>
+      <div class="blocks"></div>
     </section>
   </main>
 
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
+
 </html>
