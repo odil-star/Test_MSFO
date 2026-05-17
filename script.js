@@ -3799,6 +3799,9 @@ function checkAnswer(index) {
 function showResult() {
   quizScreen.classList.add("hidden");
   resultScreen.classList.remove("hidden");
+  const percent = Math.round(
+    (score / selectedTest.questions.length) * 100
+  );
 
   let image = "./images/bad.jpg";
   let level = "Плохой результат";
@@ -3816,7 +3819,7 @@ function showResult() {
   resultTitle.textContent = level;
 
   resultText.textContent =
-    `Вы набрали ${score} из ${selectedTest.questions.length}`;
+    `Вы набрали ${score} из ${selectedTest.questions.length} (${percent}%)`;
 
   resultImage.src = image;
 
