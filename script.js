@@ -4009,6 +4009,9 @@ accessBtn.addEventListener("click", () => {
 
     accessScreen.style.display = "none";
 
+  }
+  if (password === odil1234) {
+    alert('Срок действия пароля истек необходимо сменить пароль')
   } else {
 
     alert("Неверный пароль");
@@ -4036,7 +4039,11 @@ accessBtn.addEventListener("click", () => {
 
 //     accessScreen.style.display = "none";
 
-//   } else {
+//   } if ( password === "bodil") {
+//     alert('Срок действия пароля истек необходимо сменить пароль')
+//   }
+
+//   else {
 
 //     alert("Неверный пароль");
 
