@@ -482,6 +482,26 @@ body {
   width: 100%;
 }
 
+.get-password {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 20px;
+}
+.password-tg {
+  width: 35px;
+  height: 35px;
+}
+.get-password a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #111;
+  font-size: 19px;
+  font-weight: 700;
+}
 /* КОНЕЦ */
 
 @media (max-width: 768px) {

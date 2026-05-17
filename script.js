@@ -4017,6 +4017,35 @@ accessBtn.addEventListener("click", () => {
 
 });
 
+
+// const accessScreen =
+//   document.getElementById("accessScreen");
+
+// const accessBtn =
+//   document.getElementById("accessBtn");
+
+// const passwordInput =
+//   document.getElementById("passwordInput");
+
+// accessBtn.addEventListener("click", () => {
+
+//   const password =
+//     passwordInput.value;
+
+//   if (password === "12345") {
+
+//     accessScreen.style.display = "none";
+
+//   } else {
+
+//     alert("Неверный пароль");
+
+//   }
+
+// });
+
+
+
 const randomTestBtn = document.getElementById("randomTestBtn");
 
 randomTestBtn.addEventListener("click", () => {
