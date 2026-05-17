@@ -15,6 +15,7 @@ body {
   width: min(1100px, 100%);
   margin: 0 auto;
   padding: 30px 15px;
+  /* display: none; */
 }
 
 .hidden {
@@ -399,6 +400,89 @@ body {
 .empty-rating {
   color: #777;
 }
+
+
+/* ВХОД В САЙТ */
+
+
+.access-screen {
+  position: fixed;
+  inset: 0;
+
+  background: #111;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+  padding: 15px;
+}
+
+.access-box {
+  width: 100%;
+  max-width: 420px;
+
+  background: white;
+
+  padding: 40px;
+  border-radius: 24px;
+
+  text-align: center;
+}
+
+.access-box h1 {
+  margin-bottom: 15px;
+}
+
+.access-box p {
+  margin-bottom: 25px;
+}
+
+.access-box input {
+  width: 100%;
+
+  padding: 16px;
+
+  border-radius: 14px;
+  border: 1px solid #ccc;
+
+  font-size: 18px;
+
+  margin-bottom: 20px;
+}
+
+.access-box button {
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: #111;
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.rating-btn1 {
+  margin-top: 25px;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  background: #2563eb;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+/* КОНЕЦ */
 
 @media (max-width: 768px) {
 

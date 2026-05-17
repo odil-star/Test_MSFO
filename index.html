@@ -10,12 +10,36 @@
 
 <body>
   <main class="app">
+
+    <div class="access-screen" id="accessScreen">
+
+      <div class="access-box">
+
+        <h1>Тест по МСФО</h1>
+
+        <p>
+          Введите пароль для доступа
+        </p>
+
+        <input type="password" id="passwordInput" placeholder="Пароль">
+
+        <button id="accessBtn">
+          Войти
+        </button>
+
+      </div>
+
+    </div>
+
     <section class="hero" id="homeScreen">
       <h1>Тест по МСФО</h1>
       <p>Выберите блок. В каждом блоке 25 вопросов, 1 правильный ответ и 3 неправильных.</p>
       <div class="blocks" id="blocks"></div>
       <button id="ratingBtn" class="rating-btn">
         🏆 Топ рейтинг
+      </button>
+      <button id="randomTestBtn" class="rating-btn1">
+        🎲 Пройти случайный тест
       </button>
     </section>
 
